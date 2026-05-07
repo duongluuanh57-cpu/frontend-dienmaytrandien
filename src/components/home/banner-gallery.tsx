@@ -91,7 +91,6 @@ export function BannerGallery({ images }: BannerGalleryProps) {
                 alt="Banner Preview"
                 width={1600}
                 height={1200}
-                unoptimized
                 className="max-w-full max-h-[85vh] w-auto h-auto rounded-xl shadow-2xl pointer-events-auto object-contain"
               />
             </motion.div>

@@ -3,14 +3,27 @@ import { Footer } from "@/components/layout/footer";
 import { BrandMarquee } from "@/components/home/brand-marquee";
 import { AboutShort } from "@/components/home/about-short";
 import { ProductSection } from "@/components/home/product-section";
-import { Features } from "@/components/home/features";
-import { ProjectsGallery } from "@/components/home/projects-gallery";
-import { NewsSection } from "@/components/home/news-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { BannerGallery } from "@/components/home/banner-gallery";
 import { OrganizationSchema, LocalBusinessSchema, ProductSchema, ImageGallerySchema, FAQSchema, WebSiteSchema } from "@/components/seo/json-ld";
 import { Metadata } from "next";
 import { PrivacyAnalytics } from "@/components/analytics/privacy-analytics";
+import dynamic from "next/dynamic";
+
+const Features = dynamic(() => import("@/components/home/features").then((mod) => mod.Features), {
+  ssr: true,
+  loading: () => <div className="container mx-auto px-4 md:px-[50px] py-20 h-96 animate-pulse bg-slate-50 rounded-3xl mb-12" />
+});
+
+const ProjectsGallery = dynamic(() => import("@/components/home/projects-gallery").then((mod) => mod.ProjectsGallery), {
+  ssr: true,
+  loading: () => <div className="container mx-auto px-4 md:px-[50px] py-20 h-[500px] animate-pulse bg-slate-50 rounded-3xl mb-12" />
+});
+
+const NewsSection = dynamic(() => import("@/components/home/news-section").then((mod) => mod.NewsSection), {
+  ssr: true,
+  loading: () => <div className="container mx-auto px-4 md:px-[50px] py-20 h-96 animate-pulse bg-slate-50 rounded-3xl mb-12" />
+});
 
 import {
   PUMP_PRODUCTS,

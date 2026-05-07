@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono, Be_Vietnam_Pro } from "next/font/google";
+import { Geist_Mono, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin", "vietnamese"],
-});
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
@@ -36,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${inter.variable} ${beVietnamPro.variable} ${geistMono.variable} antialiased`}
+      className={`${beVietnamPro.variable} ${geistMono.variable} antialiased`}
     >
       <body className="flex flex-col">
         <ScrollReset />

@@ -110,7 +110,8 @@ export function ProjectsGallery({ limit, randomizeLayout = false, isPageMode = f
       scrollTrigger: {
         trigger: section.querySelector(".gallery-grid"),
         start: "top 100%",
-        toggleActions: "play none none none"
+        toggleActions: "play none none none",
+        once: true
       }
     });
 
@@ -308,7 +309,6 @@ export function ProjectsGallery({ limit, randomizeLayout = false, isPageMode = f
                   alt={lang === "vi" ? selectedProject.title : selectedProject.titleEn}
                   fill
                   priority
-                  unoptimized
                   sizes="(max-width: 768px) 100vw, 50vw"
                   onLoad={() => setIsImageLoading(false)}
                   className={cn(
