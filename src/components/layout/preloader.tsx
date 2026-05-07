@@ -51,6 +51,11 @@ export function Preloader() {
   }, [lang]);
 
   useEffect(() => {
+    // Đánh thức (pre-warm) Render Backend ngay khi người dùng vào website
+    if (isInitial) {
+      fetch("https://backend-dienmaytrandien.onrender.com/").catch(() => {});
+    }
+
     // Nếu reset ở trang khác trang chủ, ép về trang chủ và KHÔNG chạy animation vội
     if (isInitial && pathname !== "/") {
       router.replace("/");
