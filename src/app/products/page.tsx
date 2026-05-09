@@ -1,25 +1,26 @@
-import { Package } from "lucide-react";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { ProductsContent } from "./products-content";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sản phẩm chính hãng | Điện Máy Trần Điền",
+  description: "Cung cấp máy bơm nước ngưng Kingpump, Hi-tech, quạt chắn gió Nanyoo, quạt lạnh Oulai, điều hòa không khí Nagakawa, Panasonic chính hãng, uy tín hàng đầu TP.HCM.",
+  alternates: {
+    canonical: "/products",
+  },
+};
 
 export default function ProductsPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
-      <div className="p-4 rounded-full bg-red-50 text-red-600 mb-6">
-        <Package className="h-12 w-12" />
-      </div>
-      <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
-        Sản phẩm
-      </h1>
-      <p className="text-slate-500 text-lg max-w-2xl text-center leading-relaxed">
-        Khám phá danh mục các thiết bị điện máy hiện đại, chính hãng với giá tốt nhất thị trường. 
-        Trang sản phẩm đang được cập nhật nội dung chi tiết.
-      </p>
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="h-64 rounded-2xl bg-slate-50 border border-slate-100 animate-pulse flex items-center justify-center text-slate-300">
-            Đang tải dữ liệu...
-          </div>
-        ))}
-      </div>
+    <div className="bg-background overflow-x-hidden min-h-screen flex flex-col">
+      <Header />
+      
+      <main className="flex-1 bg-background">
+        <ProductsContent />
+      </main>
+
+      <Footer />
     </div>
   );
 }

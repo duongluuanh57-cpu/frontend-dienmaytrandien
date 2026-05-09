@@ -98,13 +98,25 @@ export function Preloader() {
           ease: "power2.out",
           delay: 0.2,
         })
-          // Animate progress bar and percentage
+          // Animate progress bar stage 1 (0% to 70% with fast ease-out)
+          .to(progressRef.current, {
+            scaleX: 0.7,
+            duration: 0.9,
+            ease: "power2.out",
+            onUpdate: function () {
+              const progress = Math.round(this.progress() * 70);
+              if (percentRef.current) {
+                percentRef.current.textContent = `${progress}%`;
+              }
+            }
+          })
+          // Animate progress bar stage 2 (70% to 100% starting slow then accelerating)
           .to(progressRef.current, {
             scaleX: 1,
-            duration: 1.5,
-            ease: "power1.inOut",
+            duration: 1.2,
+            ease: "power2.inOut",
             onUpdate: function () {
-              const progress = Math.round(this.progress() * 100);
+              const progress = Math.round(70 + this.progress() * 30);
               if (percentRef.current) {
                 percentRef.current.textContent = `${progress}%`;
               }
