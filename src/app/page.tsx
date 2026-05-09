@@ -33,6 +33,8 @@ import {
   PANASONIC_AC_PRODUCTS
 } from "@/constants/products";
 
+import { fetchProducts, mapBackendProductToFrontend } from "@/lib/api";
+
 export const metadata: Metadata = {
   title: "Điện Máy Trần Điền | Máy Bơm Nước Ngưng, Quạt Chắn Gió, Máy Lạnh Nagakawa & Panasonic",
   description: "Chuyên cung cấp máy bơm nước ngưng điều hòa Kingpump, HI-TECH, quạt chắn gió NEDFON, NANYOO, máy lạnh di động và điều hòa không khí Nagakawa, Panasonic chính hãng. Tư vấn và thi công lắp đặt chuyên nghiệp tại TP.HCM. Liên hệ: 0903 76 00 96.",
@@ -83,7 +85,46 @@ const galleryImages = [
   { src: "https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=800&auto=format&fit=crop", title: "Thiết kế thi công điều hòa nhà phố cao cấp" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  let pumpProducts = PUMP_PRODUCTS;
+  let fanProducts = FAN_PRODUCTS;
+  let portableProducts = PORTABLE_AC_PRODUCTS;
+  let nagakawaProducts = NAGAKAWA_AC_PRODUCTS;
+  let panasonicProducts = PANASONIC_AC_PRODUCTS;
+
+  try {
+    const res = await fetchProducts({ limit: 100 });
+    if (res && res.success && res.data && res.data.length > 0) {
+      // Map and normalise brand casing for Home page filter components
+      const allMapped = res.data.map((p) => {
+        const mapped = mapBackendProductToFrontend(p);
+        if (mapped.brand === "King Pump") mapped.brand = "Kingpump";
+        if (mapped.brand === "Hitech") mapped.brand = "HI-TECH";
+        if (mapped.brand === "Nanyoo") mapped.brand = "NANYOO";
+        if (mapped.brand === "Nagakawa") mapped.brand = "NAGAKAWA";
+        if (mapped.brand === "Panasonic") mapped.brand = "PANASONIC";
+        return mapped;
+      });
+
+      const backendPumps = allMapped.filter((p) => p.type === "Máy bơm");
+      if (backendPumps.length > 0) pumpProducts = backendPumps;
+
+      const backendFans = allMapped.filter((p) => p.type === "Quạt chắn gió");
+      if (backendFans.length > 0) fanProducts = backendFans;
+
+      const backendPortables = allMapped.filter((p) => p.type === "Quạt lạnh" || p.type?.toLowerCase().includes("di động"));
+      if (backendPortables.length > 0) portableProducts = backendPortables;
+
+      const backendNagakawa = allMapped.filter((p) => p.brand === "NAGAKAWA");
+      if (backendNagakawa.length > 0) nagakawaProducts = backendNagakawa;
+
+      const backendPanasonic = allMapped.filter((p) => p.brand === "PANASONIC");
+      if (backendPanasonic.length > 0) panasonicProducts = backendPanasonic;
+    }
+  } catch (error) {
+    console.error("Error fetching homepage products from backend, using fallbacks:", error);
+  }
+
   return (
     <div className="bg-background">
       <Header />
@@ -93,11 +134,11 @@ export default function Home() {
       <FAQSchema />
       <ImageGallerySchema images={galleryImages.slice(0, 6)} />
       <PrivacyAnalytics />
-      <ProductSchema products={PUMP_PRODUCTS} />
-      <ProductSchema products={FAN_PRODUCTS} />
-      <ProductSchema products={PORTABLE_AC_PRODUCTS} />
-      <ProductSchema products={NAGAKAWA_AC_PRODUCTS} />
-      <ProductSchema products={PANASONIC_AC_PRODUCTS} />
+      <ProductSchema products={pumpProducts} />
+      <ProductSchema products={fanProducts} />
+      <ProductSchema products={portableProducts} />
+      <ProductSchema products={nagakawaProducts} />
+      <ProductSchema products={panasonicProducts} />
 
       {/* WCAG: Skip to main content */}
       <a
@@ -117,7 +158,7 @@ export default function Home() {
         {/* Pump Section */}
         <ProductSection
           title="MÁY BƠM NƯỚC NGƯNG ĐIỀU HÒA"
-          products={PUMP_PRODUCTS}
+          products={pumpProducts}
           filterOptions={["Tất cả", "Kingpump", "HI-TECH"]}
           filterKey="brand"
           bgGray={true}
@@ -126,7 +167,7 @@ export default function Home() {
         {/* Fan Section */}
         <ProductSection
           title="QUẠT CHẮN GIÓ (AIR CURTAIN)"
-          products={FAN_PRODUCTS}
+          products={fanProducts}
           filterOptions={["Tất cả", "NEDFON", "NANYOO"]}
           filterKey="brand"
         />
@@ -134,7 +175,7 @@ export default function Home() {
         {/* Portable AC Section */}
         <ProductSection
           title="MÁY LẠNH DI ĐỘNG"
-          products={PORTABLE_AC_PRODUCTS}
+          products={portableProducts}
           filterOptions={["Tất cả", "NAGAKAWA", "PANASONIC"]}
           filterKey="brand"
           bgGray={true}
@@ -143,7 +184,7 @@ export default function Home() {
         {/* Nagakawa Section */}
         <ProductSection
           title="MÁY ĐHKK NAGAKAWA"
-          products={NAGAKAWA_AC_PRODUCTS}
+          products={nagakawaProducts}
           filterOptions={["Tất cả", "Treo tường", "Tủ đứng", "Âm trần"]}
           filterKey="type"
         />
@@ -151,7 +192,7 @@ export default function Home() {
         {/* Panasonic Section */}
         <ProductSection
           title="MÁY ĐHKK PANASONIC"
-          products={PANASONIC_AC_PRODUCTS}
+          products={panasonicProducts}
           filterOptions={["Tất cả", "Treo tường", "Âm trần", "Hệ thống Multi"]}
           filterKey="type"
           bgGray={true}
