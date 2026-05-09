@@ -165,7 +165,7 @@ export function Footer() {
             <ul className="space-y-3">
               {productCategories.map((item) => (
                 <li key={item.vi} className="group">
-                  <Link href="#" className="flex items-center gap-2 text-sm uppercase text-slate-600 hover:text-primary hover:translate-x-1 transition-all">
+                  <Link href="/products" className="flex items-center gap-2 text-sm uppercase text-slate-600 hover:text-primary hover:translate-x-1 transition-all">
                     <ChevronRight className="w-3 h-3 text-primary/50" />
                     {lang === "vi" ? item.vi : item.en}
                   </Link>

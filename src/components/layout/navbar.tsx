@@ -80,7 +80,7 @@ const navItems: NavItemData[] = [
   { name: "Trang chủ", href: "/" },
   {
     name: "Sản phẩm",
-    isMenuOnly: true,
+    href: "/products",
     subItems: [
       {
         name: "MÁY BƠM NƯỚC NGƯNG ĐIỀU HÒA",

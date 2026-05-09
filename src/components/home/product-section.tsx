@@ -2,6 +2,7 @@
 
 import { ArrowRight, ChevronDown, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { ProductCard } from "./product-card";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -228,10 +229,10 @@ export function ProductSection({
 
         {/* Bottom Call to Action */}
         <div className="mt-8 text-center">
-          <button className="inline-flex items-center gap-2.5 px-7 py-2 bg-white border border-slate-200 text-slate-900 font-black text-[10px] uppercase tracking-[0.12em] rounded-full hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-lg active:scale-95 group">
+          <Link href="/products" className="inline-flex items-center gap-2.5 px-7 py-2 bg-white border border-slate-200 text-slate-900 font-black text-[10px] uppercase tracking-[0.12em] rounded-full hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-lg active:scale-95 group">
             <span>{lang === "vi" ? "Xem tất cả sản phẩm" : "View All Products"}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>
