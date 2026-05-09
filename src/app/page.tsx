@@ -25,14 +25,6 @@ const NewsSection = dynamic(() => import("@/components/home/news-section").then(
   loading: () => <div className="container mx-auto px-4 md:px-[50px] py-20 h-96 animate-pulse bg-slate-50 rounded-3xl mb-12" />
 });
 
-import {
-  PUMP_PRODUCTS,
-  FAN_PRODUCTS,
-  PORTABLE_AC_PRODUCTS,
-  NAGAKAWA_AC_PRODUCTS,
-  PANASONIC_AC_PRODUCTS
-} from "@/constants/products";
-
 import { fetchProducts, mapBackendProductToFrontend } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -86,11 +78,11 @@ const galleryImages = [
 ];
 
 export default async function Home() {
-  let pumpProducts = PUMP_PRODUCTS;
-  let fanProducts = FAN_PRODUCTS;
-  let portableProducts = PORTABLE_AC_PRODUCTS;
-  let nagakawaProducts = NAGAKAWA_AC_PRODUCTS;
-  let panasonicProducts = PANASONIC_AC_PRODUCTS;
+  let pumpProducts: any[] = [];
+  let fanProducts: any[] = [];
+  let portableProducts: any[] = [];
+  let nagakawaProducts: any[] = [];
+  let panasonicProducts: any[] = [];
 
   try {
     const res = await fetchProducts({ limit: 100 });
